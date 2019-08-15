@@ -8,25 +8,26 @@ const cors = require('cors');
 const passport = require('passport');
 const errorhandler = require('errorhandler');
 const mongoose = require('mongoose');
+const morganLogger = require('morgan');
+const methodOverride = require('method-override');
 
 require('./models/User');
-require('./models/Article');
-require('./models/Comment');
 require('./config/passport');
+const routes = require('./routes');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Create global app object
 const app = express();
-
+app.use(routes);
 app.use(cors());
 
 // Normal express config defaults
-app.use(require('morgan')('dev'));
+app.use(morganLogger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/json' }));
 
-app.use(require('method-override')());
+app.use(methodOverride());
 app.use(express.static(__dirname + '/public'));
 
 app.use(session({ secret: 'secret', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
@@ -39,15 +40,12 @@ if (!isProduction) {
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.set('useCreateIndex', true);
-  mongoose.set('useNewUrlParser', true);
-  mongoose.connect('mongodb://localhost/leadershipportal');
+  mongoose.connect('mongodb://localhost:27017/leadershipportal', {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  });
   mongoose.set('debug', true);
 }
-
-
-
-app.use(require('./routes'));
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
