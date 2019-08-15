@@ -68,7 +68,7 @@ router.post('/users', function (req, res, next) {
   user.setPassword(req.body.user.password);
 
   user.save().then(function () {
-    return res.json({ user: user.toAuthJSON() });
+    return res.json({ 'user': user.toAuthJSON() });
   }).catch(next);
 });
 
