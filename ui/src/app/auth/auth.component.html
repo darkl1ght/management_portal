@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+    <div class="container">
+        <a class="navbar-brand" href="/login">Quiz-O-Mania!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/{{title}}">{{title=='Login'?'Regsiter': 'Login'}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="auth-page">
+    <div class="container page">
+        <div class="row justify-content-center">
+            <div class="col-md-8 offset-md-3 col-xs-12">
+                <div class="card">
+                    <div class="card-header">{{title}}</div>
+                    <div class="card-body">
+                        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+                            <fieldset [disabled]="isSubmitting">
+                                <fieldset class="form-group row">
+                                    <label for="username" class="col-md-4 col-form-label text-md-right">Username
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input formControlName="username" class="form-control form-control-lg"
+                                            id="username" type="text" *ngIf="authType == 'register'" autofocus />
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group row">
+                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input formControlName="email" placeholder="E-mail" id="email_address"
+                                            class="form-control form-control-lg" type="text" autofocus />
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input formControlName="password" placeholder="Password" id="password"
+                                            class="form-control form-control-lg" type="password" autofocus />
+                                    </div>
+                                </fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-6 offset-md-4">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="remember"> Remember Me
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{title}}
+                                    </button>
+                                    <a href="#" class="btn btn-link">
+                                        Forgot Your Password?
+                                    </a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">{{ title }}</h1>
+                <p class="text-xs-center">
+                    <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
+                    <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
+                </p>
+                <app-list-errors [errors]="errors"></app-list-errors>
+            <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+                <fieldset [disabled]="isSubmitting">
+                    <fieldset class="form-group">
+                        <input formControlName="username" placeholder="Username" class="form-control form-control-lg"
+                            type="text" *ngIf="authType == 'register'" />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input formControlName="email" placeholder="Email" class="form-control form-control-lg"
+                            type="text" />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input formControlName="password" placeholder="Password" class="form-control form-control-lg"
+                            type="password" />
+                    </fieldset>
+                    <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+                        {{ title }}
+                    </button>
+                </fieldset>
+            </form>
+        </div> -->
+
+        </div>
+    </div>
+</div>
